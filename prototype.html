@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>透明餐厅 · 交互原型</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #FCF5F2;
+      --surface: #FFFFFF;
+      --text: #0D0D0D;
+      --text-light: #999;
+      --ink: #0D0D0D;
+      --ink-light: rgba(0,0,0,0.1);
+      --accent: #0047AB;
+      --rose: #6B9AC0;
+      --green: #34C759;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Noto Sans SC', 'PingFang SC', sans-serif;
+      background: var(--bg);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    .prototype-grid {
+      display: flex;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .screen-label {
+      color: var(--rose);
+      font-size: 0.75rem;
+      text-align: center;
+      margin-bottom: 0.75rem;
+      letter-spacing: 1px;
+      font-weight: 500;
+    }
+
+    .phone {
+      width: 390px;
+      height: 844px;
+      border-radius: 36px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 0 0 4px #E8E8E8, 0 0 0 5px #D0D0D0, 0 16px 48px rgba(0,0,0,0.1);
+      position: relative;
+    }
+
+    .screen {
+      width: 390px;
+      height: 844px;
+      background: #fff;
+      overflow-y: auto;
+      overflow-x: hidden;
+      position: relative;
+    }
+    .screen::-webkit-scrollbar { width: 0; }
+
+    /* ===== SCREEN 1: RESTAURANT HOME ===== */
+    .s1-hero {
+      position: relative;
+      height: 200px;
+      background: linear-gradient(135deg, #F6EBE7 0%, #FCF5F2 100%);
+    }
+    .s1-hero-overlay {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 60px;
+      background: linear-gradient(transparent, #fff);
+    }
+    .s1-back {
+      position: absolute;
+      top: 16px; left: 16px;
+      width: 36px; height: 36px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.8);
+      border: 1px solid rgba(0,0,0,0.1);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text); font-size: 18px;
+      z-index: 2;
+    }
+    .s1-hero-text {
+      position: absolute;
+      bottom: 24px; left: 20px;
+      z-index: 1;
+    }
+    .s1-hero-text h2 { color: var(--text); font-size: 22px; font-weight: 700; }
+    .s1-hero-text .rating { color: #6B9AC0; font-size: 13px; font-weight: 500; }
+
+    .s1-content { padding: 0 16px 40px; }
+
+    .trust-card {
+      margin-top: -20px;
+      position: relative;
+      z-index: 5;
+      background: #fff;
+      border: 1.5px solid var(--ink-light);
+      outline: 1px solid var(--ink-light);
+      outline-offset: -4px;
+      border-radius: 14px;
+      padding: 20px;
+    }
+    .trust-card-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 14px;
+    }
+    .live-badge {
+      display: flex; align-items: center; gap: 6px;
+      background: rgba(215,94,101,0.08);
+      padding: 4px 10px;
+      border-radius: 20px;
+      border: 1px solid rgba(215,94,101,0.15);
+    }
+    .live-dot {
+      width: 8px; height: 8px;
+      background: var(--rose);
+      border-radius: 4px;
+      animation: pulse-live 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse-live {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+    .live-text { color: var(--rose); font-size: 12px; font-weight: 600; }
+    .trust-card-header .certified {
+      color: var(--accent); font-size: 12px; font-weight: 600;
+      display: flex; align-items: center; gap: 4px;
+    }
+
+    .live-preview {
+      width: 100%; height: 180px;
+      background: #F6EBE7;
+      border-radius: 10px;
+      position: relative; overflow: hidden;
+      margin-bottom: 14px;
+    }
+    .live-preview-inner {
+      width: 100%; height: 100%;
+      background: linear-gradient(180deg, #FAF5F2 0%, #F0E8E4 100%);
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .live-preview-inner::before {
+      content: '';
+      position: absolute;
+      top: 10px; right: 10px;
+      width: 48px; height: 32px;
+      background: rgba(0,71,171,0.06);
+      border: 1.5px solid rgba(0,71,171,0.15);
+      border-radius: 4px;
+    }
+    .play-btn-overlay {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 56px; height: 56px;
+      background: rgba(0,71,171,0.8);
+      border-radius: 28px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; color: #fff;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .play-btn-overlay:hover { transform: translate(-50%, -50%) scale(1.08); }
+
+    .trust-indicators { display: flex; gap: 8px; }
+    .trust-indicator {
+      flex: 1;
+      background: #FCF5F2;
+      border-radius: 8px;
+      padding: 12px 10px;
+      text-align: center;
+    }
+    .trust-indicator .ti-icon { font-size: 20px; margin-bottom: 4px; }
+    .trust-indicator .ti-label { font-size: 10px; color: #999; }
+    .trust-indicator .ti-value { font-size: 13px; color: var(--text); font-weight: 600; }
+
+    .s1-section-title {
+      color: var(--text); font-size: 17px; font-weight: 600;
+      margin: 20px 0 12px;
+    }
+    .menu-item {
+      display: flex; gap: 12px;
+      padding: 14px;
+      background: #FCF5F2;
+      border-radius: 12px;
+      margin-bottom: 8px;
+    }
+    .menu-img {
+      width: 72px; height: 72px;
+      background: #F0E8E4;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+    .menu-info { flex: 1; }
+    .menu-info h4 { color: var(--text); font-size: 15px; font-weight: 500; margin-bottom: 4px; }
+    .menu-info .desc { color: #999; font-size: 12px; margin-bottom: 4px; }
+    .menu-info .price { color: var(--rose); font-size: 14px; font-weight: 700; }
+
+    /* ===== SCREEN 2: LIVE KITCHEN ===== */
+    .s2-live-feed {
+      position: relative;
+      width: 100%; height: 100%;
+      background: #fff;
+    }
+    .s2-feed-area {
+      width: 100%; height: 520px;
+      background: linear-gradient(180deg, #F6EBE7 0%, #FCF5F2 100%);
+      position: relative;
+    }
+    .s2-feed-area .grid-lines {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
+      background-size: 30px 30px;
+    }
+    .s2-ai-status {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(255,255,255,0.9));
+      padding: 60px 20px 20px;
+    }
+    .s2-ai-row { display: flex; gap: 8px; }
+    .s2-ai-chip {
+      background: rgba(0,71,171,0.06);
+      border: 1px solid rgba(0,71,171,0.15);
+      padding: 6px 12px;
+      border-radius: 20px;
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 500;
+      display: flex; align-items: center; gap: 4px;
+    }
+    .s2-info-overlay {
+      padding: 20px;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .s2-watch-row { display: flex; justify-content: space-between; align-items: center; }
+    .s2-watchers { color: #999; font-size: 13px; }
+    .s2-watchers span { color: var(--accent); font-weight: 600; }
+    .s2-restaurant-name { color: var(--text); font-size: 20px; font-weight: 700; }
+    .s2-license-link {
+      display: flex; align-items: center; gap: 8px;
+      padding: 14px 16px;
+      background: #FCF5F2;
+      border-radius: 12px;
+      border: 1.5px solid var(--ink-light);
+      color: var(--text); font-size: 15px; font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .s2-license-link:hover { background: #F6EBE7; }
+    .s2-license-link .arrow { margin-left: auto; color: var(--accent); }
+
+    /* ===== SCREEN 3: LICENSES ===== */
+    .s3-nav {
+      display: flex; align-items: center; gap: 16px;
+      padding: 16px 20px;
+      color: var(--text);
+    }
+    .s3-nav h2 { font-size: 18px; font-weight: 600; flex: 1; text-align: center; }
+    .s3-nav .back-btn { cursor: pointer; font-size: 20px; }
+    .s3-content { padding: 0 16px 40px; }
+
+    .license-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 12px;
+      border: 1.5px solid var(--ink-light);
+      outline: 1px solid var(--ink-light);
+      outline-offset: -4px;
+    }
+    .license-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 14px;
+    }
+    .license-header h3 { color: var(--text); font-size: 16px; font-weight: 600; }
+    .license-verified {
+      background: rgba(0,71,171,0.06);
+      color: var(--accent);
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-weight: 500;
+      border: 1px solid rgba(0,71,171,0.12);
+    }
+    .license-body {
+      background: #FCF5F2;
+      border-radius: 8px;
+      height: 160px;
+      display: flex; align-items: center; justify-content: center;
+      color: #ccc;
+      font-size: 13px;
+      border: 1.5px dashed var(--ink-light);
+    }
+    .license-detail-row {
+      display: flex; justify-content: space-between;
+      padding: 6px 0;
+      color: #999; font-size: 12px;
+    }
+    .license-detail-row .val { color: var(--text); }
+
+    /* ===== SCREEN 4: AI MONITORING ===== */
+    .s4-nav {
+      display: flex; align-items: center; gap: 16px;
+      padding: 16px 20px;
+      color: var(--text);
+    }
+    .s4-nav h2 { font-size: 18px; font-weight: 600; flex: 1; text-align: center; }
+    .s4-content { padding: 0 16px 40px; }
+
+    .status-indicator-large {
+      background: #fff;
+      border: 1.5px solid var(--ink-light);
+      outline: 1px solid var(--ink-light);
+      outline-offset: -4px;
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    .status-big-icon { font-size: 48px; margin-bottom: 8px; }
+    .status-big-text { color: var(--accent); font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+    .status-big-sub { color: #999; font-size: 13px; }
+
+    .monitor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .monitor-card {
+      background: #FCF5F2;
+      border-radius: 12px;
+      padding: 16px;
+    }
+    .monitor-card .m-icon { font-size: 24px; margin-bottom: 8px; }
+    .monitor-card .m-label { color: #999; font-size: 12px; margin-bottom: 2px; }
+    .monitor-card .m-value { color: var(--text); font-size: 20px; font-weight: 700; }
+    .monitor-card .m-value.green { color: var(--accent); }
+
+    .alert-log {
+      margin-top: 16px;
+      background: #fff;
+      border-radius: 12px;
+      padding: 16px;
+      border: 1.5px solid var(--ink-light);
+    }
+    .alert-log h4 { color: var(--text); font-size: 15px; font-weight: 600; margin-bottom: 12px; }
+    .alert-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--ink-light);
+      font-size: 12px;
+    }
+    .alert-item:last-child { border-bottom: none; }
+    .alert-item .time { color: #ccc; width: 48px; flex-shrink: 0; }
+    .alert-item .msg { color: var(--text); }
+
+    .clickable { cursor: pointer; transition: opacity 0.2s; }
+    .clickable:hover { opacity: 0.85; }
+
+    @media (max-width: 900px) {
+      .prototype-grid { flex-direction: column; align-items: center; gap: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="prototype-grid">
+
+  <div class="phone-wrapper">
+    <div class="screen-label">1. 商家主页 — 信任前置</div>
+    <div class="phone">
+      <div class="screen" id="screen1">
+        <div class="s1-hero">
+          <div class="s1-back">←</div>
+          <div class="s1-hero-text">
+            <h2>灶门坎火锅</h2>
+            <div class="rating">★ 4.8 · 月售 8,642 单 · ¥85/人</div>
+          </div>
+          <div class="s1-hero-overlay"></div>
+        </div>
+        <div class="s1-content">
+          <div class="trust-card clickable" onclick="document.getElementById('screen2').scrollIntoView({behavior:'smooth'})">
+            <div class="trust-card-header">
+              <div class="live-badge">
+                <div class="live-dot"></div>
+                <span class="live-text">后厨直播中</span>
+              </div>
+              <div class="certified">✓ 已认证透明厨房</div>
+            </div>
+            <div class="live-preview">
+              <div class="live-preview-inner">
+                <div class="play-btn-overlay">▶</div>
+              </div>
+            </div>
+            <div class="trust-indicators">
+              <div class="trust-indicator"><div class="ti-icon">🛡️</div><div class="ti-label">AI 监测</div><div class="ti-value">运行中</div></div>
+              <div class="trust-indicator"><div class="ti-icon">📋</div><div class="ti-label">亮证经营</div><div class="ti-value">3 证齐全</div></div>
+              <div class="trust-indicator"><div class="ti-icon">🧹</div><div class="ti-label">卫生评分</div><div class="ti-value">98 分</div></div>
+            </div>
+          </div>
+
+          <div class="s1-section-title">推荐菜品</div>
+          <div class="menu-item"><div class="menu-img"></div><div class="menu-info"><h4>招牌麻辣牛肉</h4><div class="desc">月售 3,241 · 好评率 98%</div><div class="price">¥48</div></div></div>
+          <div class="menu-item"><div class="menu-img"></div><div class="menu-info"><h4>冰脆毛肚</h4><div class="desc">月售 2,891 · 好评率 96%</div><div class="price">¥38</div></div></div>
+          <div class="menu-item"><div class="menu-img"></div><div class="menu-info"><h4>现炸酥肉</h4><div class="desc">月售 1,956 · 好评率 95%</div><div class="price">¥28</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="phone-wrapper">
+    <div class="screen-label">2. 后厨直播 — AI 实时监测</div>
+    <div class="phone">
+      <div class="screen" id="screen2">
+        <div class="s2-live-feed">
+          <div class="s2-feed-area">
+            <div class="grid-lines"></div>
+            <div style="position:absolute;top:16px;left:16px;background:rgba(0,71,171,0.08);border:1px solid rgba(0,71,171,0.15);border-radius:8px;padding:8px 12px;color:var(--accent);font-size:12px;font-weight:500;">🟢 画面正常</div>
+            <div class="s2-ai-status">
+              <div class="s2-ai-row">
+                <div class="s2-ai-chip">✓ 画面角度正常</div>
+                <div class="s2-ai-chip">✓ 无遮挡物</div>
+                <div class="s2-ai-chip">✓ 无黑屏记录</div>
+              </div>
+            </div>
+          </div>
+          <div class="s2-info-overlay">
+            <div class="s2-restaurant-name">灶门坎火锅 · 后厨</div>
+            <div class="s2-watch-row">
+              <div class="s2-watchers">👁 <span>1,247</span> 人正在观看</div>
+              <div style="color:#999;font-size:13px;">已播 02:34:15</div>
+            </div>
+            <div class="s2-license-link clickable" onclick="document.getElementById('screen3').scrollIntoView({behavior:'smooth'})">📋 查看亮证经营<span class="arrow">→</span></div>
+            <div class="s2-license-link clickable" onclick="document.getElementById('screen4').scrollIntoView({behavior:'smooth'})">🤖 AI 监测摘要<span class="arrow">→</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="phone-wrapper">
+    <div class="screen-label">3. 亮证经营 — 结构化展示</div>
+    <div class="phone">
+      <div class="screen" id="screen3">
+        <div class="s3-nav"><span class="back-btn">←</span><h2>亮证经营</h2></div>
+        <div class="s3-content">
+          <div class="license-card">
+            <div class="license-header"><h3>营业执照</h3><div class="license-verified">✓ 已认证</div></div>
+            <div class="license-body">营业执照图片预览</div>
+            <div style="margin-top:12px;">
+              <div class="license-detail-row"><span>统一社会信用代码</span><span class="val">91110108MA0******</span></div>
+              <div class="license-detail-row"><span>名称</span><span class="val">灶门坎餐饮管理有限公司</span></div>
+              <div class="license-detail-row"><span>法定代表人</span><span class="val">张**</span></div>
+              <div class="license-detail-row"><span>有效期</span><span class="val">2023.06 - 长期</span></div>
+            </div>
+          </div>
+          <div class="license-card">
+            <div class="license-header"><h3>食品经营许可证</h3><div class="license-verified">✓ 已认证</div></div>
+            <div class="license-body">许可证图片预览</div>
+            <div style="margin-top:12px;">
+              <div class="license-detail-row"><span>许可证编号</span><span class="val">JY1310108******</span></div>
+              <div class="license-detail-row"><span>经营项目</span><span class="val">热食类食品制售</span></div>
+              <div class="license-detail-row"><span>有效期</span><span class="val">2023.08 - 2028.08</span></div>
+            </div>
+          </div>
+          <div class="license-card">
+            <div class="license-header"><h3>员工健康证</h3><div class="license-verified">✓ 全员公示</div></div>
+            <div class="license-body">健康证图片预览</div>
+            <div style="margin-top:12px;">
+              <div class="license-detail-row"><span>公示人数</span><span class="val">12 人</span></div>
+              <div class="license-detail-row"><span>最近更新</span><span class="val">2025.12.15</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="phone-wrapper">
+    <div class="screen-label">4. AI 监测摘要 — 系统状态面板</div>
+    <div class="phone">
+      <div class="screen" id="screen4">
+        <div class="s4-nav"><span class="back-btn">←</span><h2>AI 监测摘要</h2></div>
+        <div class="s4-content">
+          <div class="status-indicator-large">
+            <div class="status-big-icon">✅</div>
+            <div class="status-big-text">AI 监测运行正常</div>
+            <div class="status-big-sub">上次检测时间：刚刚</div>
+          </div>
+          <div class="monitor-grid">
+            <div class="monitor-card"><div class="m-icon">📷</div><div class="m-label">画面检测</div><div class="m-value green">正常</div></div>
+            <div class="monitor-card"><div class="m-icon">🚫</div><div class="m-label">今日黑屏</div><div class="m-value green">0 次</div></div>
+            <div class="monitor-card"><div class="m-icon">🧹</div><div class="m-label">卫生预警</div><div class="m-value green">0 次</div></div>
+            <div class="monitor-card"><div class="m-icon">📐</div><div class="m-label">角度偏差</div><div class="m-value green">0 次</div></div>
+          </div>
+          <div class="alert-log">
+            <h4>近期检测记录</h4>
+            <div class="alert-item"><span class="time">14:32</span><span class="msg">画面角度检测通过</span><span style="color:var(--accent);margin-left:auto;">✓</span></div>
+            <div class="alert-item"><span class="time">13:15</span><span class="msg">卫生巡检通过 · 评分 98</span><span style="color:var(--accent);margin-left:auto;">✓</span></div>
+            <div class="alert-item"><span class="time">11:48</span><span class="msg">厨师着装检测通过</span><span style="color:var(--accent);margin-left:auto;">✓</span></div>
+            <div class="alert-item"><span class="time">09:02</span><span class="msg">食材溯源信息已更新</span><span style="color:var(--accent);margin-left:auto;">✓</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

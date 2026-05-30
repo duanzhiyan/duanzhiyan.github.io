@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>透明餐厅 PRD | 段芝言</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;600;700;900&family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
+<style>
+  :root {
+    --bg: #FEF3F4; --bg-alt: #F6EBE7; --surface: #FFFFFF;
+    --text: #0D0D0D; --text-secondary: rgba(0,0,0,0.62); --text-muted: rgba(0,0,0,0.38);
+    --ink: #0D0D0D; --ink-light: rgba(0,0,0,0.12);
+    --accent: #0047AB; --accent-soft: rgba(0,71,171,0.06);
+    --rose: #6B9AC0; --border: rgba(0,0,0,0.06); --border-light: rgba(0,0,0,0.12);
+    --font-hand: 'LXGW WenKai', 'Caveat', cursive;
+    --font-hand-en: 'Caveat', cursive;
+    --font-display: 'Playfair Display', 'Noto Serif SC', serif;
+    --font-body: 'Noto Sans SC', 'PingFang SC', sans-serif;
+    --content-max: 800px;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--font-body);font-size:1rem;line-height:1.75;
+    color:var(--text);background:var(--bg);
+    -webkit-font-smoothing:antialiased;
+  }
+  body::before{
+    content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.35;
+    background-image:url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");
+    background-size:140px 140px;
+  }
+  .container{max-width:var(--content-max);margin:0 auto;padding:0 1.5rem;position:relative;z-index:1}
+
+  /* Back link */
+  .back{padding:2rem 0 0}
+  .back a{
+    font-size:.78rem;font-weight:500;text-transform:uppercase;letter-spacing:1.5px;
+    color:var(--text-secondary);transition:color .2s;
+  }
+  .back a:hover{color:var(--accent)}
+
+  /* Header */
+  .prd-header{padding:3rem 0 2rem}
+  .prd-header__badge{
+    display:inline-block;font-size:.6rem;font-weight:700;letter-spacing:2px;
+    background:var(--accent);color:#fff;padding:3px 12px;border-radius:4px;margin-bottom:1rem;
+  }
+  .prd-header__title{
+    font-family:var(--font-hand);font-size:clamp(2rem,4vw,2.8rem);font-weight:700;
+    color:var(--ink);line-height:1.2;margin-bottom:.3rem;
+  }
+  .prd-header__sub{font-family:var(--font-display);font-size:1.1rem;font-style:italic;color:var(--rose);margin-bottom:.8rem}
+  .prd-header__meta{font-size:.8rem;color:var(--text-muted)}
+
+  /* Squiggle */
+  .squiggle{margin-bottom:2.5rem}
+  .squiggle svg{display:block}
+
+  /* Stat row */
+  .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:3rem}
+  .stat-item{
+    background:var(--surface);border-radius:8px;padding:1.2rem;text-align:center;
+    border:1px solid var(--border);outline:1px solid var(--ink-light);outline-offset:-4px;
+  }
+  .stat-item__num{font-family:var(--font-hand);font-size:1.8rem;font-weight:700;color:var(--accent);line-height:1.1}
+  .stat-item__label{font-size:.72rem;color:var(--text-muted);margin-top:.2rem}
+
+  /* Section */
+  .sec{margin-bottom:3rem}
+  .sec__title{
+    font-family:var(--font-hand);font-size:1.6rem;font-weight:700;color:var(--ink);
+    padding-bottom:.5rem;margin-bottom:1rem;
+    border-bottom:1px solid var(--border-light);
+  }
+  .sec__sub{
+    font-family:var(--font-hand-en);font-size:1rem;color:var(--rose);margin-bottom:.6rem;
+  }
+  .sec p{font-size:.95rem;color:var(--text-secondary);margin-bottom:.8rem;line-height:1.85}
+  .sec ul{list-style:none;padding-left:0;margin-bottom:1rem}
+  .sec ul li{font-size:.9rem;color:var(--text-secondary);padding:.3rem 0;position:relative;padding-left:1.2rem}
+  .sec ul li::before{
+    content:'';position:absolute;left:0;top:.75rem;
+    width:5px;height:5px;border-radius:50%;background:var(--accent);opacity:.45;
+  }
+  .sec strong{color:var(--ink);font-weight:600}
+
+  /* Quote */
+  .quote{
+    background:var(--accent-soft);border-left:3px solid var(--accent);
+    padding:1rem 1.3rem;margin:1rem 0;border-radius:0 6px 6px 0;
+  }
+  .quote p{font-style:italic;color:var(--text-secondary);font-size:.88rem;margin-bottom:.3rem}
+  .quote p:last-child{margin-bottom:0}
+
+  /* Table */
+  .table-wrap{overflow-x:auto;margin:1rem 0 1.5rem;-webkit-overflow-scrolling:touch}
+  table{width:100%;border-collapse:collapse;font-size:.82rem;min-width:600px}
+  th{
+    background:var(--accent);color:#fff;font-weight:600;font-size:.75rem;
+    padding:.6rem .8rem;text-align:left;white-space:nowrap;
+  }
+  td{padding:.55rem .8rem;border-bottom:1px solid var(--border);color:var(--text-secondary)}
+  tr:nth-child(even) td{background:var(--accent-soft)}
+
+  /* Story cards */
+  .story-card{
+    background:var(--surface);border-radius:8px;padding:1.3rem 1.5rem;margin-bottom:1rem;
+    border:1px solid var(--border);outline:1px solid var(--ink-light);outline-offset:-4px;
+    transition:transform .3s ease,box-shadow .3s ease;
+  }
+  .story-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.06)}
+  .story-card__title{font-weight:600;font-size:.95rem;color:var(--ink);margin-bottom:.4rem}
+  .story-card__as{
+    font-size:.78rem;color:var(--rose);font-style:italic;margin-bottom:.5rem;
+  }
+  .story-card__ac{font-size:.82rem;color:var(--text-muted);margin-top:.3rem}
+  .story-card__ac span{display:block;padding:2px 0;padding-left:.8rem;position:relative}
+  .story-card__ac span::before{content:'☐';position:absolute;left:0;font-size:.7rem;color:var(--accent);opacity:.5}
+
+  /* Risk grid */
+  .risk-grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin:1rem 0}
+  .risk-item{
+    background:var(--surface);border-radius:8px;padding:1rem 1.2rem;
+    border:1px solid var(--border);
+  }
+  .risk-item__title{font-weight:600;font-size:.85rem;color:var(--ink);margin-bottom:.3rem}
+  .risk-item__level{font-size:.7rem;font-weight:700;display:inline-block;padding:1px 8px;border-radius:3px;margin-bottom:.4rem}
+  .risk-item__level--high{background:#FEF0F0;color:#D32F2F}
+  .risk-item__level--mid{background:#FFF8E1;color:#F57F17}
+  .risk-item__fix{font-size:.8rem;color:var(--text-secondary)}
+
+  /* Q&A */
+  .qa-item{margin-bottom:.8rem}
+  .qa-item__q{font-weight:600;font-size:.85rem;color:var(--ink);margin-bottom:.15rem}
+  .qa-item__a{font-size:.85rem;color:var(--text-secondary);line-height:1.7}
+
+  /* Download */
+  .download-bar{
+    background:var(--surface);border-radius:8px;padding:1.2rem 1.5rem;margin:3rem 0;
+    display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+    border:1px solid var(--border);outline:1px solid var(--ink-light);outline-offset:-4px;
+  }
+  .download-bar__text{font-size:.85rem;color:var(--text-secondary)}
+  .btn{
+    display:inline-flex;align-items:center;gap:.5rem;
+    font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;
+    padding:.75rem 1.8rem;border-radius:99px;border:none;cursor:pointer;text-decoration:none;
+    transition:all .3s ease;background:var(--text);color:#fff;
+  }
+  .btn:hover{background:var(--accent);color:#fff;transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,71,171,.25)}
+
+  .page-footer{text-align:center;padding:2rem 0 3rem;font-size:.75rem;color:var(--text-muted);border-top:1px solid var(--border);margin-top:2rem}
+
+  @media(max-width:768px){
+    .stat-row{grid-template-columns:1fr}
+    .risk-grid{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Back -->
+  <div class="back"><a href="index.html"><i class="fas fa-arrow-left"></i> 返回作品集</a></div>
+
+  <!-- Header -->
+  <header class="prd-header">
+    <div class="prd-header__badge">PRODUCT REQUIREMENTS DOCUMENT</div>
+    <h1 class="prd-header__title">透明餐厅</h1>
+    <p class="prd-header__sub">商家后厨直播功能模块</p>
+    <p class="prd-header__meta">版本 v1.0 · 2024 年 3 月 · 段芝言 · 阿里巴巴口碑学院校企合作项目 · 状态：已采纳落地</p>
+  </header>
+
+  <!-- Squiggle -->
+  <div class="squiggle">
+    <svg width="120" height="12" viewBox="0 0 120 12" fill="none">
+      <path d="M2 6c10-3 16 3 24 0s14-3 22 0 16 3 24 0 14-3 22 0 14 3 20 0" stroke="#6B9AC0" stroke-width="2" stroke-linecap="round" opacity=".55"/>
+    </svg>
+  </div>
+
+  <!-- Stat Row -->
+  <div class="stat-row">
+    <div class="stat-item">
+      <div class="stat-item__num">50,000+</div>
+      <div class="stat-item__label">有效问卷样本</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-item__num">78.3%</div>
+      <div class="stat-item__label">用户核心痛点占比</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-item__num">4 屏</div>
+      <div class="stat-item__label">高保真交互原型</div>
+    </div>
+  </div>
+
+  <!-- 1. EXECUTIVE SUMMARY -->
+  <section class="sec" id="summary">
+    <h2 class="sec__title">1. 执行摘要</h2>
+    <p>本项目旨在为饿了么平台设计并落地「透明餐厅」功能模块，通过<strong>商家后厨实时直播</strong>、<strong>资质证照公示</strong>及<strong>AI 违规监测</strong>三项核心能力，系统性解决外卖消费场景中「食品安全信息不对称」这一结构性痛点。</p>
+    <p>前期完成 50,000+ 份有效问卷及 12 组用户深度访谈，明确了消费者在外卖决策中对后厨卫生状况的核心焦虑。方案已通过阿里巴巴口碑学院校企合作渠道完成需求调研、产品设计、交互原型及 PRD 撰写，<strong>已被地方食品监管局采纳作为外卖平台食品安全管理的参考标准推广实施</strong>。</p>
+  </section>
+
+  <!-- 2. PROBLEM STATEMENT -->
+  <section class="sec" id="problem">
+    <h2 class="sec__title">2. 问题陈述</h2>
+    <h3 class="sec__sub">2.1 核心问题</h3>
+    <p>消费者在外卖下单时，无法获知商家后厨的真实卫生状况。当前平台仅提供商家门面照片、用户文字评价及平台分级（如「优选商家」），这些信息均无法直接反映后厨操作是否规范、食材是否新鲜、环境是否清洁。消费者实质上是在「盲选」。</p>
+    <h3 class="sec__sub">2.2 定量发现</h3>
+    <ul>
+      <li><strong>78.3%</strong> 的受访者将「无法了解后厨卫生状况」列为外卖消费第一大顾虑</li>
+      <li><strong>65.1%</strong> 的用户愿意为提供后厨直播的商家支付 5%-10% 的溢价</li>
+      <li><strong>53.4%</strong> 的用户表示「后厨是否透明」会直接决定商家选择</li>
+      <li><strong>82.7%</strong> 的用户希望平台提供可筛选的食品安全认证标签</li>
+    </ul>
+    <h3 class="sec__sub">2.3 用户声音</h3>
+    <div class="quote">
+      <p>"我都不知道后厨什么样，看评论说好吃我就点了。但有一次吃出问题之后，我现在只敢点有实体店照片的。"</p>
+    </div>
+    <div class="quote">
+      <p>"外卖平台的评分系统太容易被刷了，我想看的是真实的后厨视频，哪怕就看一眼，也比看一百条好评有用。"</p>
+    </div>
+  </section>
+
+  <!-- 3. PERSONAS -->
+  <section class="sec" id="personas">
+    <h2 class="sec__title">3. 目标用户与画像</h2>
+    <h3 class="sec__sub">3.1 主要画像：安全敏感型消费者</h3>
+    <ul>
+      <li>22-35 岁，一二线城市，本科及以上学历，外卖频次 ≥ 3 次/周</li>
+      <li>在下单前会仔细查看商家信息，对食品安全高度敏感</li>
+      <li>愿意为透明信息支付合理溢价，但不接受品牌溢价</li>
+      <li>核心场景：工作日午餐时间有限，但不想吃「来路不明」的食物</li>
+    </ul>
+    <h3 class="sec__sub">3.2 次要画像：家庭守护型消费者</h3>
+    <ul>
+      <li>28-40 岁，已婚有子女，对儿童食品安全极度敏感</li>
+      <li>外卖频次 1-2 次/周，主要为家庭场景（周末、给孩子点餐）</li>
+      <li>更关注证照资质和食材溯源，而非价格</li>
+    </ul>
+  </section>
+
+  <!-- 4. STRATEGIC CONTEXT -->
+  <section class="sec" id="strategy">
+    <h2 class="sec__title">4. 战略背景与竞品分析</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>维度</th><th>美团</th><th>饿了么（现状）</th><th>透明餐厅（目标）</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>食品安全功能</td><td>「安心餐厅」标签<br>（资质审核层面）</td><td>平台分级标签<br>（用户评价驱动）</td><td><strong>后厨实时直播 + AI 监测<br>+ 证照结构化公示</strong></td></tr>
+          <tr><td>信息透明度</td><td>低（依赖评价体系）</td><td>低（依赖评价体系）</td><td><strong>高（实时视频 + 结构化数据）</strong></td></tr>
+          <tr><td>用户信任度</td><td>中等</td><td>中等偏低</td><td><strong>目标提升 20-30%</strong></td></tr>
+          <tr><td>监管合规</td><td>被动响应</td><td>被动响应</td><td><strong>主动对接监管系统</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3 class="sec__sub">4.1 为什么是现在？</h3>
+    <ul>
+      <li><strong>政策窗口</strong>：国家市场监管总局持续推进「明厨亮灶」工程，多地已出台强制性要求</li>
+      <li><strong>用户需求成熟</strong>：5w+ 问卷表明用户诉求已从「锦上添花」上升到「选择依据」</li>
+      <li><strong>技术条件具备</strong>：CDN 成本下降，AI 餐饮场景识别准确率已达商用水平（>90%）</li>
+      <li><strong>差异化窗口期</strong>：美团尚未推出同等级别的实时直播功能，先发窗口约 6-12 个月</li>
+    </ul>
+  </section>
+
+  <!-- 5. SOLUTION -->
+  <section class="sec" id="solution">
+    <h2 class="sec__title">5. 解决方案概述</h2>
+    <p>围绕「可见即信任」的核心理念，构建<strong>四个递进功能模块</strong>，形成从「初步感知」到「深度信任」的用户决策链。</p>
+
+    <h3 class="sec__sub">模块一：商家主页升级</h3>
+    <ul>
+      <li>增设「透明厨房」入口楼层，展示后厨直播实时缩略图</li>
+      <li>食品安全标签基于客观数据自动生成（直播中 / 证照齐全 / AI 评分 85+ 等）</li>
+      <li>展示当前观看人数及累计观看量，利用社会证明降低筛选成本</li>
+    </ul>
+
+    <h3 class="sec__sub">模块二：后厨直播（核心差异化能力）</h3>
+    <ul>
+      <li>7×24 小时实时视频流，支持多路摄像头（操作区 / 清洗区 / 仓储区）切换</li>
+      <li>录播回放（过去 24 小时），覆盖非营业时段</li>
+      <li>一键反馈：用户发现问题可截图提交至平台</li>
+      <li>首帧时间 ≤ 1.5s，720P+ 自适应码率</li>
+    </ul>
+
+    <h3 class="sec__sub">模块三：亮证经营</h3>
+    <ul>
+      <li>营业执照、食品经营许可证、健康证结构化展示（OCR + 人工审核）</li>
+      <li>有效期自动监控与预警，到期自动下架标签</li>
+      <li>对接监管数据库，一键真伪核验</li>
+    </ul>
+
+    <h3 class="sec__sub">模块四：AI 监测摘要</h3>
+    <ul>
+      <li>计算机视觉实时分析视频流，识别 8 类违规行为（未戴口罩 / 操作台脏污 / 生熟混放等）</li>
+      <li>每日/每周卫生评分卡，以可视化仪表盘呈现</li>
+      <li>违规事件时间线 + 商家整改状态追踪</li>
+      <li>单帧识别延迟 ≤ 2s，准确率 ≥ 90%，误报率 ≤ 10%</li>
+    </ul>
+  </section>
+
+  <!-- 6. SUCCESS METRICS -->
+  <section class="sec" id="metrics">
+    <h2 class="sec__title">6. 成功指标</h2>
+    <h3 class="sec__sub">North Star Metric</h3>
+    <p><strong>透明餐厅商家的人均下单转化率</strong>：上线 3 个月内，较非透明商家提升 ≥ 15%</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>指标名称</th><th>当前基线</th><th>目标值</th><th>衡量周期</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>平台食品安全满意度</td><td>36.5%</td><td>≥ 50%</td><td>季度</td></tr>
+          <tr><td>后厨直播人均观看时长</td><td>—（新功能）</td><td>≥ 45 秒</td><td>月度</td></tr>
+          <tr><td>透明商家停留时长</td><td>—</td><td>较非透明 +40%</td><td>月度</td></tr>
+          <tr><td>透明餐厅接入商家数</td><td>0</td><td>≥ 500 家（首月）</td><td>月度</td></tr>
+          <tr><td>食品安全相关投诉率</td><td>—</td><td>较非透明 -20%</td><td>季度</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3 class="sec__sub">护栏指标</h3>
+    <ul>
+      <li>页面加载速度：直播功能不得使主页加载时间增加超过 500ms</li>
+      <li>直播可用性：uptime ≥ 99.5%，单次故障恢复 ≤ 5 分钟</li>
+      <li>商家流失率：透明餐厅商家月流失率不高于非透明商家的 1.2 倍</li>
+    </ul>
+  </section>
+
+  <!-- 7. USER STORIES -->
+  <section class="sec" id="stories">
+    <h2 class="sec__title">7. 用户故事</h2>
+    <p style="margin-bottom:1.5rem"><strong>Epic Hypothesis：</strong>我们相信，为用户提供后厨实时直播与结构化安全信息，将使下单转化率提升 15%+，因为消费者最核心的阻碍——食品安全信息不对称——将被结构性解决。</p>
+
+    <div class="story-card">
+      <div class="story-card__title">Story 1: 在商家主页发现「透明厨房」入口</div>
+      <div class="story-card__as">作为安全敏感型消费者，我希望一眼看到商家是否提供后厨直播，以便快速判断卫生可信度。</div>
+      <div class="story-card__ac">
+        <span>当商家已接入直播时，主页展示「透明厨房」楼层及直播缩略图</span>
+        <span>当商家未接入时不展示该楼层</span>
+        <span>缩略图每 5 秒自动刷新</span>
+        <span>展示当前观看人数，每 30 秒更新</span>
+      </div>
+    </div>
+
+    <div class="story-card">
+      <div class="story-card__title">Story 2: 观看后厨实时直播</div>
+      <div class="story-card__as">作为正在考虑下单的用户，我希望点击后能看到清晰流畅的后厨实时画面。</div>
+      <div class="story-card__ac">
+        <span>首帧时间 ≤ 1.5 秒</span>
+        <span>支持多路摄像头切换，切换延迟 ≤ 1 秒</span>
+        <span>720P+ 自适应码率</span>
+        <span>直播页底部展示当日卫生评分及最近违规摘要</span>
+        <span>可直接点击「下单」返回点餐流程</span>
+      </div>
+    </div>
+
+    <div class="story-card">
+      <div class="story-card__title">Story 3: 查看商家证照资质</div>
+      <div class="story-card__as">作为对食品安全要求极高的家庭用户，我希望下单前能快速核验商家资质。</div>
+      <div class="story-card__ac">
+        <span>结构化展示证照列表（名称、有效期、核验状态）</span>
+        <span>证照即将过期（≤ 30 天）展示黄色预警，已过期展示红色警告</span>
+        <span>「一键核验」入口对接监管数据库</span>
+      </div>
+    </div>
+
+    <div class="story-card">
+      <div class="story-card__title">Story 4: 查看 AI 卫生评分</div>
+      <div class="story-card__as">作为时间有限的上班族，我希望快速了解卫生评分以在多家店之间比较。</div>
+      <div class="story-card__ac">
+        <span>展示 AI 卫生评分（0-100 分），以环形进度条呈现</span>
+        <span>最近 7 天评分趋势折线图</span>
+        <span>违规事件列表（类型、时间、整改状态）</span>
+        <span>评分逻辑在产品内以 FAQ 形式公开</span>
+      </div>
+    </div>
+
+    <div class="story-card">
+      <div class="story-card__title">Story 5: 商家端接入与管理</div>
+      <div class="story-card__as">作为参与透明餐厅的商家老板，我希望有简单清晰的后台管理直播设备和证照信息。</div>
+      <div class="story-card__ac">
+        <span>管理后台包含直播设备状态、证照管理、违规记录三个子模块</span>
+        <span>设备离线超 2 小时自动推送提醒</span>
+        <span>违规记录展示事件截图 + AI 识别标签 + 建议整改措施</span>
+        <span>整改进度对外展示（已整改 / 待整改 / 超期未改）</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. OUT OF SCOPE -->
+  <section class="sec" id="out-of-scope">
+    <h2 class="sec__title">8. 非本次范围</h2>
+    <ul>
+      <li>摄像头硬件设备选型详细规格（由平台统一采购并补贴）</li>
+      <li>AI 识别模型具体算法实现（技术团队独立评估）</li>
+      <li>透明餐厅相关运营推广策略（运营团队另行制定）</li>
+      <li>直播画面美颜/滤镜功能（产品定位为「真实透明」）</li>
+      <li>多平台适配（MVP 仅聚焦饿了么）</li>
+    </ul>
+  </section>
+
+  <!-- 9. RISKS -->
+  <section class="sec" id="risks">
+    <h2 class="sec__title">9. 核心风险与缓解</h2>
+    <div class="risk-grid">
+      <div class="risk-item">
+        <div class="risk-item__level risk-item__level--high">高</div>
+        <div class="risk-item__title">商家接入意愿不足</div>
+        <div class="risk-item__fix">初期平台补贴硬件成本；首月接入商家给予流量加权；阶梯式激励政策</div>
+      </div>
+      <div class="risk-item">
+        <div class="risk-item__level risk-item__level--high">高</div>
+        <div class="risk-item__title">隐私合规风险</div>
+        <div class="risk-item__fix">法务提前介入；严格控制直播范围（仅后厨）；定期合规审计</div>
+      </div>
+      <div class="risk-item">
+        <div class="risk-item__level risk-item__level--mid">中</div>
+        <div class="risk-item__title">AI 误报导致商家投诉</div>
+        <div class="risk-item__fix">设置人工复核机制；AI 判定仅作参考，不直接触发处罚</div>
+      </div>
+      <div class="risk-item">
+        <div class="risk-item__level risk-item__level--mid">中</div>
+        <div class="risk-item__title">直播带宽成本过高</div>
+        <div class="risk-item__fix">按需推流策略：仅用户主动观看时推高清流，非观看时段降为截图轮播</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. OPEN QUESTIONS -->
+  <section class="sec" id="questions">
+    <h2 class="sec__title">10. 待决议题</h2>
+    <div class="qa-item">
+      <div class="qa-item__q">Q1: 商家接入是强制性还是自愿性？</div>
+      <div class="qa-item__a">→ 建议 MVP 阶段采用自愿+激励模式，验证效果后考虑升级为准入标准。</div>
+    </div>
+    <div class="qa-item">
+      <div class="qa-item__q">Q2: AI 卫生评分算法是否应完全公开？</div>
+      <div class="qa-item__a">→ 建议以「评分因素说明」形式选择性透明，避免算法被反向利用。</div>
+    </div>
+    <div class="qa-item">
+      <div class="qa-item__q">Q3: 后厨直播是否应支持弹幕/评论？</div>
+      <div class="qa-item__a">→ MVP 阶段仅支持「一键反馈」至平台，暂不开放公开评论，避免恶意刷评。</div>
+    </div>
+    <div class="qa-item">
+      <div class="qa-item__q">Q4: 透明餐厅标签是否影响搜索结果排序？</div>
+      <div class="qa-item__a">→ MVP 阶段仅作为筛选条件，不直接干预排序，后续根据数据决定。</div>
+    </div>
+  </section>
+
+  <!-- Download -->
+  <div class="download-bar">
+    <div class="download-bar__text">
+      <strong>完整 PRD 文档</strong><br>
+      <span style="font-size:.78rem;color:var(--text-muted)">包含附录 A（原型说明）和附录 B（调研方法）</span>
+    </div>
+    <a href="透明餐厅PRD.docx" class="btn" download><i class="fas fa-download"></i> 下载 .docx</a>
+  </div>
+
+  <footer class="page-footer"><p>&copy; 2026 段芝言</p></footer>
+
+</div>
+</body>
+</html>
