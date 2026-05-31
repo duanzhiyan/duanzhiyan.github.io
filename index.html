@@ -499,7 +499,7 @@
           <p class="hero__name-en">Melody Duan</p>
           <p class="hero__tagline">应用心理学硕士 · 产品与用户研究方向</p>
           <p class="hero__sub">把心理学放进产品里，把用户放在心里。</p>
-          <a href="resume-page.html" target="_blank" class="btn btn--primary">查看简历 <i class="fas fa-arrow-right"></i></a>
+          <a href="resume.pdf" target="_blank" class="btn btn--primary">查看简历 <i class="fas fa-arrow-right"></i></a>
         </div>
         <div class="hero__photo fade-in">
           <img src="hero-photo.jpg" alt="段芝言">
@@ -527,10 +527,10 @@
           </div>
           <a href="prototype.html" target="_blank" class="pairing__work">
             <div class="pairing__work-thumb" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;background:transparent;border:none;height:420px;padding:0">
-              <img src="screen-1.png" alt="商家主页" style="width:100%;height:100%;object-fit:contain;border-radius:6px;border:1px solid var(--border)">
-              <img src="screen-2.png" alt="后厨直播" style="width:100%;height:100%;object-fit:contain;border-radius:6px;border:1px solid var(--border)">
-              <img src="screen-3.png" alt="亮证经营" style="width:100%;height:100%;object-fit:contain;border-radius:6px;border:1px solid var(--border)">
-              <img src="screen-4.png" alt="AI监测摘要" style="width:100%;height:100%;object-fit:contain;border-radius:6px;border:1px solid var(--border)">
+              <img src="screen-1.png" alt="商家主页" loading="lazy" style="width:100%;height:100%;object-fit:contain;border-radius:6px;border:1px solid var(--border)">
+              <img src="screen-2.png" alt="后厨直播" loading="lazy" style="width:100%;height:100%;object-fit:contain;border-radius:6px;border:1px solid var(--border)">
+              <img src="screen-3.png" alt="亮证经营" loading="lazy" style="width:100%;height:100%;object-fit:contain;border-radius:6px;border:1px solid var(--border)">
+              <img src="screen-4.png" alt="AI监测摘要" loading="lazy" style="width:100%;height:100%;object-fit:contain;border-radius:6px;border:1px solid var(--border)">
             </div>
             <div class="pairing__work-title">透明餐厅 · 交互原型</div>
             <div class="pairing__work-meta">饿了么 · 后厨直播功能模块</div>
@@ -581,7 +581,7 @@
           </div>
           <div class="pairing__work">
             <div class="pairing__work-thumb" style="background:var(--surface);cursor:pointer" onclick="openLightbox('声游记封面.jpg')">
-              <img src="声游记封面.jpg" alt="声游记封面" style="width:100%;height:100%;object-fit:contain">
+              <img src="声游记封面.jpg" alt="声游记封面" loading="lazy" style="width:100%;height:100%;object-fit:contain">
             </div>
             <div class="pairing__work-title">《声游记》· 央广云听APP</div>
             <div class="pairing__work-meta">中央人民广播电台 · 2022</div>
@@ -598,7 +598,7 @@
           </div>
           <div class="pairing__work">
             <div class="pairing__work-thumb" style="background:transparent;border:none;height:auto;padding:0">
-              <video controls src="毕设片段.mp4" poster="毕业作品海报.jpg" style="width:100%;border-radius:6px;max-height:340px;display:block"></video>
+              <video controls src="毕设片段.mp4" poster="毕业作品海报.jpg" preload="none" style="width:100%;border-radius:6px;max-height:340px;display:block"></video>
             </div>
             <div class="pairing__work-title">毕设视频 & 新媒体短视频</div>
             <div class="pairing__work-meta">毕设</div>
@@ -616,20 +616,20 @@
             <!-- 海报 + 公众号排版 → 统一横滑 -->
             <p class="vis-design__label">海报 · 公众号排版</p>
             <div class="wechat-scroll">
-              <div class="wechat-scroll__item" onclick="openLightbox('公众号-小樽海报.png')">
-                <img src="公众号-小樽海报.png" alt="小樽海报">
+              <div class="wechat-scroll__item" onclick="openLightbox('公众号-小樽海报.jpg')">
+                <img src="公众号-小樽海报.jpg" alt="小樽海报" loading="lazy">
                 <span class="poster-item__caption">小樽 · 海报</span>
               </div>
               <div class="wechat-scroll__item" onclick="openLightbox('公众号-小樽排版.jpg')">
-                <img src="公众号-小樽排版.jpg" alt="小樽推文排版">
+                <img src="公众号-小樽排版.jpg" alt="小樽推文排版" loading="lazy">
                 <span class="poster-item__caption">小樽 · 排版</span>
               </div>
-              <div class="wechat-scroll__item" onclick="openLightbox('公众号-挪威海报.png')">
-                <img src="公众号-挪威海报.png" alt="挪威海报">
+              <div class="wechat-scroll__item" onclick="openLightbox('公众号-挪威海报.jpg')">
+                <img src="公众号-挪威海报.jpg" alt="挪威海报" loading="lazy">
                 <span class="poster-item__caption">挪威 · 海报</span>
               </div>
               <div class="wechat-scroll__item" onclick="openLightbox('公众号-挪威排版.jpg')">
-                <img src="公众号-挪威排版.jpg" alt="挪威推文排版">
+                <img src="公众号-挪威排版.jpg" alt="挪威推文排版" loading="lazy">
                 <span class="poster-item__caption">挪威 · 排版</span>
               </div>
             </div>
@@ -647,7 +647,7 @@
           </div>
           <div class="pairing__work">
             <div class="pairing__work-thumb" style="background:var(--surface);cursor:pointer" onclick="openLightbox('论文模型图.png')">
-              <img src="论文模型图.png" alt="链式中介模型" style="width:100%;height:100%;object-fit:contain">
+              <img src="论文模型图.png" alt="链式中介模型" loading="lazy" style="width:100%;height:100%;object-fit:contain">
             </div>
             <div class="pairing__work-title">特质愤怒对恶意创造力的影响（一作）</div>
             <div class="pairing__work-meta">准备投稿中</div>
