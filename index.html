@@ -75,11 +75,6 @@
     .nav__toggle--active span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
 
     /* ---- Thread line ---- */
-    .page-thread::before{
-      content:'';position:absolute;top:0;bottom:0;
-      left:calc(var(--line-offset) + 1.5rem);width:1px;
-      background:var(--ink-light);z-index:0;
-    }
 
     /* ---- Shared line-art decorative elements ---- */
     .squiggle-line{display:block}
@@ -141,10 +136,6 @@
       font-size:4rem;color:var(--ink-light);overflow:hidden;
     }
     .hero__photo img{width:100%;height:100%;object-fit:contain;position:relative;z-index:1}
-    .hero__photo-frame{
-      position:absolute;inset:-6px;z-index:2;pointer-events:none;
-    }
-
     /* ---- Line-art decorative marks ---- */
     .pairing::after{
       content:'';display:block;width:40px;height:2px;
@@ -371,6 +362,43 @@
       display:block;font-size:.65rem;color:var(--text-muted);margin-top:2px;
     }
 
+    /* ---- Side Dot Nav (left) ---- */
+    .dot-nav{
+      position:fixed;left:1.8rem;top:50%;transform:translateY(-50%);z-index:900;
+      display:flex;flex-direction:column;align-items:center;gap:28px;
+    }
+    .dot-nav__track{
+      position:absolute;top:0;left:50%;transform:translateX(-50%);
+      width:1.5px;height:100%;background:var(--ink-light);
+      z-index:-1;border-radius:1px;
+    }
+    .dot-nav__fill{
+      position:absolute;top:0;left:50%;transform:translateX(-50%);
+      width:1.5px;height:0%;background:var(--accent);
+      z-index:-1;border-radius:1px;transition:height .4s ease;
+    }
+    .dot-nav__dot{
+      width:8px;height:8px;border-radius:50%;
+      background:var(--surface);border:1.5px solid var(--ink-light);
+      transition:background .3s,transform .3s,border-color .3s;
+      cursor:pointer;position:relative;flex-shrink:0;
+    }
+    .dot-nav__dot:hover{transform:scale(1.6)}
+    .dot-nav__dot--active{background:var(--accent);border-color:var(--accent);transform:scale(1.4)}
+    .dot-nav__dot--active:hover{transform:scale(1.6)}
+    .dot-nav__label{
+      position:absolute;left:18px;top:50%;transform:translateY(-50%);
+      font-size:.65rem;color:var(--text-muted);white-space:nowrap;
+      opacity:0;transition:opacity .2s;
+      pointer-events:none;
+    }
+    .dot-nav__dot:hover .dot-nav__label{opacity:1}
+
+    @media(max-width:768px){
+      .dot-nav{left:.6rem;gap:24px}
+      .dot-nav__dot{width:6px;height:6px}
+    }
+
     /* ---- Lightbox ---- */
     .lightbox{
       position:fixed;inset:0;z-index:9999;
@@ -401,8 +429,9 @@
     .collage__item.visible{opacity:1;transform:translateY(0)}
 
     @media(max-width:768px){
-      :root{--line-offset:0.8rem}
-      .hero__inner{grid-template-columns:1fr}
+      :root{--line-offset:0}
+      .page-thread::before{display:none}
+.hero__inner{grid-template-columns:1fr}
       .hero__photo{width:150px;aspect-ratio:2/3;order:-1;margin:0 auto}
       .hero__name{font-size:2.6rem}
       .about-spread{grid-template-columns:1fr}
@@ -450,6 +479,16 @@
 
 <div class="page-thread">
 
+  <!-- Side dot nav -->
+  <nav class="dot-nav" id="dot-nav" aria-label="页面导航">
+    <div class="dot-nav__track"></div>
+    <div class="dot-nav__fill" id="dot-fill"></div>
+    <span class="dot-nav__dot dot-nav__dot--active" data-section="hero"><span class="dot-nav__label">Home</span></span>
+    <span class="dot-nav__dot" data-section="skills"><span class="dot-nav__label">Skills</span></span>
+    <span class="dot-nav__dot" data-section="experience"><span class="dot-nav__label">Experience</span></span>
+    <span class="dot-nav__dot" data-section="about"><span class="dot-nav__label">About</span></span>
+  </nav>
+
   <!-- ===== HERO ===== -->
   <section class="hero" id="hero">
     <div class="container">
@@ -460,15 +499,9 @@
           <p class="hero__name-en">Melody Duan</p>
           <p class="hero__tagline">应用心理学硕士 · 产品与用户研究方向</p>
           <p class="hero__sub">把心理学放进产品里，把用户放在心里。</p>
-          <a href="resume.pdf" class="btn btn--primary" download><i class="fas fa-download"></i> 下载简历</a>
+          <a href="resume-page.html" target="_blank" class="btn btn--primary">查看简历 <i class="fas fa-arrow-right"></i></a>
         </div>
-        <!-- Photo with hand-drawn frame -->
         <div class="hero__photo fade-in">
-          <!-- Hand-drawn frame SVG -->
-          <svg class="hero__photo-frame" viewBox="0 0 260 320" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-            <rect x="2" y="2" width="256" height="316" rx="10" stroke="#0D0D0D" stroke-width="2.5" opacity="0.5" stroke-dasharray="8 2"/>
-            <rect x="6" y="6" width="248" height="308" rx="7" stroke="#0D0D0D" stroke-width="1.2" opacity="0.3"/>
-          </svg>
           <img src="hero-photo.jpg" alt="段芝言">
         </div>
       </div>
@@ -535,7 +568,7 @@
             </a>
             <div class="pairing__work-title">"透明餐厅"产品需求文档</div>
             <div class="pairing__work-meta">阿里巴巴口碑学院 · 2023-2024</div>
-            <div class="pairing__work-desc">基于 5w+ 用户调研，从问题定义到用户故事完整覆盖。方案已被食品监管局采纳落地。</div>
+            <div class="pairing__work-desc">主导透明餐厅产品调研，分析 5w+ 消费者问卷，独立完成需求文档及产品原型设计，方案已被食品监管局采纳落地。</div>
             <a href="prd.html" class="pairing__work-link">查看完整 PRD</a>
           </div>
         </div>
@@ -552,7 +585,7 @@
             </div>
             <div class="pairing__work-title">《声游记》· 央广云听APP</div>
             <div class="pairing__work-meta">中央人民广播电台 · 2022</div>
-            <div class="pairing__work-desc">从0到1完成内容产品全流程：选题策划→用户定位→文案撰写→音频录制→后期合成。累计输出文稿30+篇，制作节目20+期。</div>
+            <div class="pairing__work-desc">独立完成「声游记」系列文案与音频制作 30+ 期，已在云听 APP 播出。累计撰稿与连线 50+ 篇。</div>
             <audio controls src="声游记demo.mp3" class="inline-audio"></audio>
           </div>
         </div>
@@ -644,13 +677,13 @@
       </div>
       <div class="collage">
 
-        <div class="collage__item"><div class="collage__card"><div class="collage__date">2025.10 — Present</div><div class="collage__title">HRBD 干事 · 一对一公益咨询项目发起人</div><div class="collage__org">西南大学研究生会</div><div class="collage__desc">从0到1发起并运营"一对一公益咨询"，导师从1位扩展至6位，覆盖不同行业方向。</div></div></div>
+        <div class="collage__item"><div class="collage__card"><div class="collage__date">2025.10 — Present</div><div class="collage__title">HRBD 干事 · 一对一公益咨询项目发起人</div><div class="collage__org">西南大学研究生会</div><div class="collage__desc">从 0 到 1 策划并运营一对一公益咨询项目，建立导师库覆盖产品、用研、教育、咨询等行业方向，为在校学生提供职业生涯发展咨询。</div></div></div>
         <div class="collage__item"><div class="collage__card"><div class="collage__date">2025.01 — 2025.03</div><div class="collage__title">商家运营（数据驱动增长）</div><div class="collage__org">字节跳动 · 川渝</div><div class="collage__desc">GMV产出10w+（同期均值5w+），动销率60%，川渝新人Top1。</div></div></div>
-        <div class="collage__item"><div class="collage__card"><div class="collage__date">2024.04 — 2024.07</div><div class="collage__title">内容运营 · 项目策划与执行</div><div class="collage__org">成都奔牛科技有限公司</div><div class="collage__desc">主导8期新媒体节目全流程，观看量+30%、互动率+40%。</div></div></div>
+        <div class="collage__item"><div class="collage__card"><div class="collage__date">2024.04 — 2024.07</div><div class="collage__title">内容运营 · 项目策划与执行</div><div class="collage__org">成都奔牛科技有限公司</div><div class="collage__desc">通过用户调研与受众分析精准定位内容方向，主导 15 期节目策划与执行。基于数据反馈持续迭代内容策略，观看量提升 30%，互动率增长 40%。</div></div></div>
         <div class="collage__item"><div class="collage__card"><div class="collage__date">2024.03 — 2024.05</div><div class="collage__title">新媒体运营</div><div class="collage__org">重庆灵创文化传播有限公司</div><div class="collage__desc">1v1定制运营计划，周期性数据复盘，客户转化率提升30%。</div></div></div>
         <div class="collage__item"><div class="collage__card"><div class="collage__date">2023.04 — 2024.05</div><div class="collage__title">项目经理 · "透明餐厅"</div><div class="collage__org">阿里巴巴校企合作 · 口碑学院</div><div class="collage__desc">回收5w+有效数据，撰写PRD提出"后厨直播"方案，已被食品监管局采纳落地。</div></div></div>
         <div class="collage__item"><div class="collage__card"><div class="collage__date">2022.08 — 2022.11</div><div class="collage__title">实习主播 / 记者</div><div class="collage__org">中央人民广播电台 · 中国交通广播</div><div class="collage__desc">负责《声游记》节目制作全流程，累计撰稿30+篇，节目20+期，记者连线50+次。</div></div></div>
-        <div class="collage__item"><div class="collage__card"><div class="collage__date">2020.04 — 2024.05</div><div class="collage__title">学术组委会 · 总负责人</div><div class="collage__org">四川师范大学</div><div class="collage__desc">统筹两校区五部门，举办近百场讲座，好评率96.3%，总浏览量70w+。</div></div></div>
+        <div class="collage__item"><div class="collage__card"><div class="collage__date">2020.04 — 2024.05</div><div class="collage__title">学术组委会 · 总负责人</div><div class="collage__org">四川师范大学</div><div class="collage__desc">统筹两校区五部门举办近百场讲座，累计参加 5w+ 人次，好评率 96.3%。调研学生兴趣制定学期计划，新媒体宣传浏览量 70w+，策划活动 2w+ 人次参与。</div></div></div>
       </div>
     </div>
   </section>
@@ -666,24 +699,16 @@
           <path d="M2 7c12-4 20 4 30 0s18-4 28 0 20 4 30 0 18-4 28 0 18 4 24 0" stroke="#0D0D0D" stroke-width="2" stroke-linecap="round" opacity=".45"/>
         </svg>
       </div>
-      <div class="about-spread fade-in">
+      <div class="about-spread fade-in" style="grid-template-columns:1fr">
         <div>
           <p class="about-text">
-            我叫<span class="highlight">段芝言</span>，西南大学应用心理学硕士。我相信<span class="highlight">好的产品来自于对人性的理解</span>——这正是心理学能带给产品设计最独特的东西。目前开放实习机会，期待在<span class="highlight">产品经理、用户研究、产品运营</span>领域与你交流。
+            Hi，我是<span class="highlight">段芝言</span>，ENTJ，西南大学心理学在读研究生。喜欢把模糊的事变成清晰的路径，享受把复杂问题拆成可执行的步骤。我相信<span class="highlight">好产品经理不是替用户做决定，而是比用户更早看见他们没说出口的需求</span>。
           </p>
           <div class="contact-list" id="contact">
-            <a href="mailto:serafina0515@163.com" class="contact-item"><i class="fas fa-envelope"></i> serafina0515@163.com</a>
+            <a href="mailto:3317224910@qq.com" class="contact-item"><i class="fas fa-envelope"></i> 3317224910@qq.com</a>
             <span class="contact-item"><i class="fas fa-phone"></i> 18580425515</span>
             <span class="contact-item"><i class="fas fa-map-marker-alt"></i> 重庆</span>
           </div>
-        </div>
-        <!-- Photo slider -->
-        <div class="photo-stack">
-          <div class="photo-stack__item">🖼️</div>
-          <div class="photo-stack__item">🖼️</div>
-          <div class="photo-stack__item">🖼️</div>
-          <div class="photo-stack__item">🖼️</div>
-          <div class="photo-stack__item">🖼️</div>
         </div>
       </div>
     </div>
@@ -722,6 +747,28 @@
   const toggle = document.getElementById('nav-toggle'), navList = document.getElementById('nav-list');
   toggle.addEventListener('click', () => { navList.classList.toggle('nav--open'); toggle.classList.toggle('nav__toggle--active'); });
   navList.querySelectorAll('.nav__link').forEach(l => l.addEventListener('click', () => { navList.classList.remove('nav--open'); toggle.classList.remove('nav__toggle--active'); }));
+
+  // Dot nav
+  const dots = document.querySelectorAll('.dot-nav__dot');
+  const dotSections = [...dots].map(d => document.getElementById(d.dataset.section));
+  const dotFill = document.getElementById('dot-fill');
+  const dotOb = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        dots.forEach(d => d.classList.toggle('dot-nav__dot--active', d.dataset.section === e.target.id));
+      }
+    });
+  }, { threshold: .4 });
+  dotSections.forEach(s => dotOb.observe(s));
+  dots.forEach(d => d.addEventListener('click', () => document.getElementById(d.dataset.section).scrollIntoView({behavior:'smooth'})));
+
+  // Progress fill
+  addEventListener('scroll', () => {
+    const scrollTop = scrollY;
+    const docH = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docH > 0 ? Math.min(scrollTop / docH * 100, 100) : 0;
+    dotFill.style.height = pct + '%';
+  });
 
   // Lightbox
   function openLightbox(src) {

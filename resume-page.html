@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Melody · 产品经理实习生</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #e8e4de;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 24px;
+    font-family: 'Noto Sans SC', 'PingFang SC', 'Hiragino Sans GB', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== CARD ===== */
+  .page {
+    width: 800px;
+    max-width: 100%;
+    background: #faf7f2;
+    padding: 64px 60px 68px 60px;
+    position: relative;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.05), 0 8px 48px rgba(0,0,0,0.07);
+    overflow: hidden;
+  }
+
+  /* ===== HERO: Melody ===== */
+  .hero {
+    position: relative;
+    margin-bottom: 48px;
+  }
+
+  .melody {
+    font-family: 'Playfair Display', 'Georgia', serif;
+    font-size: 130px;
+    font-weight: 900;
+    font-style: italic;
+    color: #d94e2b;
+    line-height: 0.85;
+    letter-spacing: -3px;
+  }
+
+  .hero-row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+
+  .hero-info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .chinese-name {
+    font-family: 'Noto Serif SC', 'STSong', 'Songti SC', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: #2a2a2a;
+    letter-spacing: 0.08em;
+  }
+
+  .hero-meta {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 11px;
+    color: #888;
+    letter-spacing: 0.04em;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 18px;
+    margin-top: 4px;
+  }
+
+  .hero-meta span {
+    white-space: nowrap;
+  }
+
+  .hero-role {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-style: italic;
+    color: #d94e2b;
+    letter-spacing: 0.04em;
+    text-align: right;
+  }
+
+  .hero-role small {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 11px;
+    font-style: normal;
+    color: #888;
+    display: block;
+    margin-top: 2px;
+  }
+
+  /* ===== PHOTO — circular, magazine-style ===== */
+  .photo-circle {
+    position: absolute;
+    right: 0;
+    top: 10px;
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: 50% 22%;
+    background: #e8e2d9;
+  }
+
+  /* ===== DIVIDER ===== */
+  .rule {
+    width: 100%;
+    height: 1px;
+    background: #d94e2b;
+    opacity: 0.35;
+    margin-bottom: 44px;
+  }
+
+  /* ===== BODY: two columns ===== */
+  .body-cols {
+    display: flex;
+    gap: 50px;
+  }
+
+  .col-l { flex: 0 0 36%; min-width: 220px; }
+  .col-r { flex: 1; min-width: 280px; }
+
+  /* ===== BLOCKS ===== */
+  .block { margin-bottom: 32px; }
+
+  .block-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    font-weight: 700;
+    font-style: italic;
+    color: #d94e2b;
+    letter-spacing: 0.06em;
+    margin-bottom: 12px;
+    text-transform: lowercase;
+  }
+
+  .about {
+    font-size: 12.5px;
+    color: #333;
+    line-height: 1.85;
+  }
+
+  /* Education */
+  .edu { margin-bottom: 4px; }
+  .edu .d { font-size: 12px; font-weight: 600; color: #2a2a2a; }
+  .edu .s { font-size: 12.5px; font-weight: 500; color: #2a2a2a; margin-top: 1px; }
+  .edu .m { font-size: 11.5px; color: #555; }
+
+  /* Tool tags */
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .tag {
+    font-size: 11px;
+    color: #555;
+    letter-spacing: 0.03em;
+  }
+  .tag::after { content: '·'; margin-left: 8px; color: #ccc; }
+  .tag:last-child::after { content: none; }
+
+  /* Skills list */
+  .skill-list {
+    list-style: none;
+  }
+  .skill-list li {
+    font-size: 12.5px;
+    color: #2a2a2a;
+    line-height: 2;
+    padding-left: 16px;
+    position: relative;
+    font-weight: 500;
+  }
+  .skill-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #d94e2b;
+  }
+
+  /* Experience */
+  .exp { margin-bottom: 22px; }
+  .exp-head { margin-bottom: 8px; }
+  .exp-org {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 13.5px; font-weight: 600; color: #2a2a2a;
+  }
+  .exp-role { font-size: 12px; color: #555; margin-top: 2px; }
+  .exp-date { font-size: 11px; color: #999; margin-top: 4px; font-weight: 500; }
+  .exp-pts { list-style: none; }
+  .exp-pts li {
+    font-size: 12px; color: #444; line-height: 1.78;
+    padding-left: 16px; position: relative; margin-bottom: 4px;
+  }
+  .exp-pts li::before {
+    content: '—';
+    position: absolute; left: 0; top: 0;
+    color: #d94e2b; font-size: 10px; line-height: 1.78;
+  }
+
+  /* Timeline */
+  .timeline-block {
+    position: relative;
+    padding-left: 24px;
+  }
+
+  .timeline-block::before {
+    content: '';
+    position: absolute;
+    left: 5.5px;
+    top: 8px;
+    bottom: 12px;
+    width: 1.5px;
+    background: #d94e2b;
+    opacity: 0.22;
+  }
+
+  .timeline-block .exp {
+    position: relative;
+  }
+
+  .timeline-block .exp::before {
+    content: '';
+    position: absolute;
+    left: -17px;
+    top: 7px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #d94e2b;
+    transform: translateX(-50%);
+  }
+
+  .timeline-block .exp--key::before {
+    width: 10px;
+    height: 10px;
+    left: -17px;
+    top: 6px;
+    box-shadow: 0 0 0 3px rgba(217,78,43,0.15);
+  }
+
+  /* Honors */
+  .honor { font-size: 12px; color: #555; line-height: 1.9; }
+
+  /* Note */
+  .note { font-size: 12px; color: #444; line-height: 1.7; }
+  .note strong { font-weight: 600; color: #2a2a2a; }
+
+  /* QR */
+  .qr-block {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 10px 14px;
+    border: 1px solid rgba(217,78,43,0.18);
+    border-radius: 4px;
+  }
+  .qr-placeholder {
+    width: 50px;
+    height: 50px;
+    border-radius: 2px;
+    flex-shrink: 0;
+    object-fit: contain;
+  }
+  .qr-text {
+    font-size: 11px;
+    color: #555;
+    line-height: 1.6;
+  }
+  .qr-text strong {
+    display: block;
+    font-size: 12px;
+    color: #2a2a2a;
+    margin-bottom: 2px;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 720px) {
+    .page { padding: 40px 28px; }
+    .melody { font-size: 72px; }
+    .body-cols { flex-direction: column; gap: 0; }
+    .col-l, .col-r { flex: auto; min-width: 0; }
+    .photo-circle { position: relative; right: auto; top: auto; margin-bottom: 16px; }
+    .hero-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+    .hero-role { text-align: left; }
+    .timeline-block { padding-left: 20px; }
+    .timeline-block .exp::before { left: -13px; }
+    .timeline-block .exp--key::before { left: -13px; }
+  }
+
+  @media print {
+    @page { size: A4; margin: 0; }
+    body { margin: 0; padding: 0; background: #fff; }
+    .page { box-shadow: none; margin: 0 auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- ===== HERO ===== -->
+  <header class="hero">
+    <div class="melody">Melody</div>
+
+    <div class="hero-row">
+      <div class="hero-info">
+        <div class="chinese-name">段芝言</div>
+        <div class="hero-meta">
+          <span>18580425515</span>
+          <span>3317224910@qq.com</span>
+          <span>成都 · 深圳 · 上海 · 北京</span>
+        </div>
+      </div>
+
+      <img class="photo-circle" src="照片.jpg" alt="Melody">
+
+      <div class="hero-role">
+        产品经理实习生
+        <small>可立即到岗 · 实习 6 个月及以上</small>
+      </div>
+    </div>
+  </header>
+
+  <div class="rule"></div>
+
+  <!-- ===== BODY ===== -->
+  <div class="body-cols">
+
+    <!-- LEFT -->
+    <div class="col-l">
+      <div class="block">
+        <div class="block-title">about</div>
+        <div class="about">Hi，我是段芝言，ENTJ，西南大学心理学在读研究生。喜欢把模糊的事变成清晰的路径，享受把复杂问题拆成可执行的步骤。我相信好产品经理不是替用户做决定，而是比用户更早看见他们没说出口的需求。</div>
+      </div>
+
+      <div class="block">
+        <div class="block-title">skills & tools</div>
+        <div class="tags" style="margin-bottom: 8px;">
+          <span class="tag">需求文档</span>
+          <span class="tag">用户调研</span>
+          <span class="tag">数据分析</span>
+          <span class="tag">项目统筹</span>
+          <span class="tag">内容策略</span>
+          <span class="tag">新媒体运营</span>
+        </div>
+        <div class="tags">
+          <span class="tag">SPSS</span>
+          <span class="tag">R</span>
+          <span class="tag">Python</span>
+          <span class="tag">爬虫</span>
+          <span class="tag">Figma</span>
+          <span class="tag">Audition</span>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-title">education</div>
+        <div class="edu">
+          <div class="d">2025.09 – 2028.06</div>
+          <div class="s">西南大学 · 心理学部</div>
+          <div class="m">应用心理 硕士</div>
+        </div>
+        <div class="edu" style="margin-top: 10px;">
+          <div class="d">2020.09 – 2024.06</div>
+          <div class="s">四川师范大学</div>
+          <div class="m">播音与主持艺术 本科</div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-title">honors</div>
+        <div class="honor">「互联网+」创新创业大赛 — 校级优秀奖</div>
+        <div class="honor">中华经典诵写奖大赛 — 国家级二等奖</div>
+        <div class="honor">新时代新青年文化艺术展演 — 省级二等奖</div>
+      </div>
+
+      <div class="block">
+        <div class="block-title">research</div>
+        <div class="note"><strong>论文待发表</strong> — 《特质愤怒对恶意创造力的影响：敌意归因偏向和道德推脱的链式中介效应》，预计 2026 年投稿。</div>
+      </div>
+
+      <div class="block">
+        <div class="block-title">website</div>
+        <div class="qr-block">
+          <img class="qr-placeholder" src="qrcode.png" alt="QR">
+          <div class="qr-text">
+            <strong>个人网站</strong>
+            扫码查看完整作品集<br>研究模型 · 项目案例
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="col-r">
+      <div class="block timeline-block">
+        <div class="block-title">experience</div>
+
+        <div class="exp exp--key">
+          <div class="exp-head">
+            <div class="exp-org">字节跳动</div>
+            <div class="exp-role">商家运营</div>
+            <div class="exp-date">2025.01 – 2025.03</div>
+          </div>
+          <ul class="exp-pts">
+            <li>多途径拓展商户资源并制定线上运营方案，赋能商家达成更高平台产出；GMV 10w+（同期均值 5w+），动销率 60%（同期均值 40%），获川渝片区新人 Top 1</li>
+          </ul>
+        </div>
+
+        <div class="exp exp--key">
+          <div class="exp-head">
+            <div class="exp-org">阿里巴巴口碑学院</div>
+            <div class="exp-role">产品经理</div>
+            <div class="exp-date">2023.04 – 2024.05</div>
+          </div>
+          <ul class="exp-pts">
+            <li>主导「透明餐厅」产品调研，分析 5w+ 份消费者问卷，独立完成需求文档及产品原型设计；建立标准化数据标注流程，推动优化策略落地，获合作双方高度评价</li>
+          </ul>
+        </div>
+
+        <div class="exp">
+          <div class="exp-head">
+            <div class="exp-org">中央人民广播电台</div>
+            <div class="exp-role">中国交通广播 · 实习主播</div>
+            <div class="exp-date">2022.08 – 2022.11</div>
+          </div>
+          <ul class="exp-pts">
+            <li>独立完成「声游记」系列文案与音频制作 30+ 期，已在云听 APP 播出；累计撰稿与实时连线报道 50+ 篇</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="block timeline-block">
+        <div class="block-title">campus</div>
+        <div class="exp exp--key">
+          <div class="exp-head">
+            <div class="exp-org">西南大学研究生会</div>
+            <div class="exp-role">「一对一公益咨询」项目发起人</div>
+            <div class="exp-date">2025.10 – Present</div>
+          </div>
+          <ul class="exp-pts">
+            <li>从 0 到 1 策划并运营一对一公益咨询项目，建立导师库覆盖产品、用研、教育、咨询等行业方向；为在校学生提供职业生涯发展咨询，搭建校友与在校生的持续连接机制</li>
+          </ul>
+        </div>
+
+        <div class="exp">
+          <div class="exp-head">
+            <div class="exp-org">四川师范大学学术组委会</div>
+            <div class="exp-role">总负责人</div>
+            <div class="exp-date">2020.04 – 2022.06</div>
+          </div>
+          <ul class="exp-pts">
+            <li>统筹两校区五部门举办近百场讲座，累计 5w+ 人次参与，好评率 96.3%；调研学生兴趣制定学期计划，新媒体宣传浏览量 70w+，策划活动 2w+ 人参与</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>
